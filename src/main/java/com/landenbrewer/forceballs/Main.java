@@ -22,7 +22,7 @@ public class Main extends Application {
 		final double[] goToLocation = {400.0, 400.0};
 
 		//Whether the circular orbit paths are shown.
-		boolean circles = false;
+		boolean circles = true;
 
 		//The y value for the outermost circle
 		double startY = 10;
@@ -30,7 +30,7 @@ public class Main extends Application {
 		double endY = 390;
 
 		//The amount of balls equally spaced from the start to then end
-		int ballCount = 26;
+		int ballCount = 30;
 
 
 		//Array holding all the balls created.
@@ -48,7 +48,7 @@ public class Main extends Application {
 			Ball ball = new Ball(400, radius, 800, 800, 0, 0, 3, 10);
 
 			//Set the velocity to the SQRT(6.67e-11 * 5.98e24 / 1000 * distance from center) * 0.005. Has a direction of 0 (or 180 sometimes)
-			ball.setVelocity(new Vector(Math.sqrt((Vector.BIG_G * Vector.EARTH_MASS) / ((1000 * (goToLocation[1] - radius)))) * 0.005, 0));
+			ball.setVelocity(new Vector(Math.sqrt((Vector.BIG_G * Vector.EARTH_MASS) / ((1000 * (goToLocation[1] - radius)))) * 0.005, (i % 2 == 0) ? 180 : 0));
 			ball.setScale(1000);
 			//Create the paths for each of the circles if the circles variable is true
 			if (circles) {

@@ -35,11 +35,11 @@ public class Spring_scene extends Application {
 		double springStartX = 200;
 		double springStartY = 400;
 
-		double dampingFactor = 0;
-		double k = 1; //Unrelated to time. Spring Constant.
+		double dampingFactor = 7500;
+		double k = 10; //Spring Constant.
 
 
-		Ball springEnd = new Ball(200 + 141.4213562373095, 400 + 141.4213562373095, 0, 0, 800, 800, 10, 10);
+		Ball springEnd = new Ball(200 + 100, 400, 0, 0, 800, 800, 10, 10);
 
 
 		springEnd.setScale(0.001);
@@ -69,7 +69,7 @@ public class Spring_scene extends Application {
 			line.setEndY(springEnd.getY() + testVector.yComponent);
 
 			//Subtracting a vector is adding the opposite
-			Vector velocityDifference = new Vector(0, unitVector.direction)
+			Vector velocityDifference = new Vector(0, 0)
 					.add(new Vector(-springEnd.getVelocity().magnitude, springEnd.getVelocity().direction));
 
 			double dampingForce = unitVector.dot(velocityDifference) * dampingFactor;
@@ -78,17 +78,17 @@ public class Spring_scene extends Application {
 			double force = k * compressionDistance;  //Hooke's law
 			//System.out.println(force);
 
-
-			double totalSpringForce = force + dampingForce;
+			double totalSpringForce = force + -dampingForce; //MUST CHANGE
 
 			Vector Fs = new Vector(((springStartX - springEnd.getX() >= 0) ? totalSpringForce : -totalSpringForce) * 0.005, Math.toDegrees(directionToStart));
 
 
-			springEnd.move(Fs.add(new Vector(10, 225)));
+			springEnd.move(Fs);
 
-			/*if(totalSpringForce < 0.005 && totalSpringForce > -0.005) {
+
+			if(totalSpringForce < 0.005 && totalSpringForce > -0.005) {
 				springEnd.move(new Vector(50, Math.toDegrees(directionToStart)));
-			}*/
+			}
 
 			//System.out.println(springEnd.getX() + " " + springEnd.getY());
 		}));

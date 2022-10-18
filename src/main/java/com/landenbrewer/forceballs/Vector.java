@@ -4,6 +4,8 @@ public class Vector {
 	public static final double BIG_G = 6.67E-11;
 	public static final double EARTH_MASS = 5.972E24;
 	public static final double MOON_MASS = 7.34767309E22;
+
+	public static final double EARTH_TO_SUN_DIST = 1.49149174e11;
 	public double magnitude;
 	public double direction;
 
@@ -12,7 +14,7 @@ public class Vector {
 
 	public Vector(double magnitude, double direction) {
 		this.magnitude = magnitude;
-		if (Double.isNaN(direction)) {
+		if(Double.isNaN(direction)) {
 			this.direction = 0;
 		} else {
 			this.direction = direction;
@@ -24,14 +26,13 @@ public class Vector {
 		this.yComponent = magnitude * Math.sin(Math.toRadians(this.direction));
 	}
 
-	public Vector() {
-	}
+	public Vector() {}
 
-	public Vector add(Vector... vectors) {
+	public Vector add(Vector ...vectors) {
 		double tempx = this.xComponent;
 		double tempy = this.yComponent;
 
-		for (Vector vector : vectors) {
+		for(Vector vector : vectors) {
 			tempx += vector.xComponent;
 			tempy += vector.yComponent;
 		}
@@ -44,6 +45,11 @@ public class Vector {
 		this.magnitude = (tempx < 0) ? -this.magnitude : this.magnitude;
 
 		double direction = Math.toDegrees(Math.atan(tempy / tempx));
+		if(Double.isNaN(direction)) {
+			this.direction = 0;
+		} else {
+			this.direction = direction;
+		}
 
 
 		return this;
